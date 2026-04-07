@@ -1,0 +1,13 @@
+[core]
+	hooksPath = ~/.git-hooks
+	quotepath = false
+	pager = delta
+[user]
+	email = wjhhhhhha0@gmail.com
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+[merge]
+	conflictstyle = zdiff3
