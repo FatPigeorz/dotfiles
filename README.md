@@ -5,9 +5,10 @@ Personal dev environment config. Rose-pine unified theme.
 ## Quick Setup
 
 ```bash
-git clone git@github.com:FatPigeorz/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles && ./install.sh
+git clone --recursive git@github.com:FatPigeorz/dotfiles.git ~/.dotfiles
 ```
+
+Then ask Claude Code to read `CLAUDE.md` and set up the environment.
 
 ## What's Included
 
