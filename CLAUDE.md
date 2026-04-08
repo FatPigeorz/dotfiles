@@ -1,89 +1,147 @@
-# Dotfiles
+# AI-Friendly Terminal Configuration
 
-Personal dev environment. Unified rose-pine theme across all tools.
+Personal dev environment. Unified rose-pine theme. This file is the entry point for Claude Code to set up a new machine.
 
-## Setup Guide
+## How to use
 
-When the user asks to set up this dotfiles on a new machine, follow these steps. Adapt to the current OS and package manager — do NOT blindly run commands.
+When the user asks to set up this dotfiles on a new machine:
 
-### 1. Install packages
+1. Read this file to understand what to install
+2. Detect the current OS (`uname -s`), package manager, and shell (`$SHELL`)
+3. Ask the user which categories they need (or install all)
+4. For each tool, read the reference config in this repo, then read the machine's current config (if any), diff them, and write the appropriate config to the machine
+5. Before overwriting any existing config, diff and confirm with the user
 
-Required CLI tools: neovim, ripgrep, fd, bat, eza, zoxide, git-delta, fzf, yazi, starship, zellij, zsh-syntax-highlighting
+**Important:** Do NOT use symlinks. Read the reference configs in this repo and write them to the correct locations on the machine. This allows per-machine customization without breaking the repo.
 
-- macOS: `brew install <packages>`
+---
+
+## 1. Language Toolchains
+
+### Rust
+- Install: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+- After install: `rustup default nightly`
+- Provides: `cargo`, `rustc`, `rustup`
+- Environment: `source "$HOME/.cargo/env"` (added by shell config)
+
+### Python (uv)
+- Install: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- Provides: `uv`, `uvx` (fast pip/venv replacement)
+- Environment: `source "$HOME/.local/bin/env"` (added by shell config)
+
+---
+
+## 2. Terminal Environment
+
+### Shell (zsh / bash / fish)
+- Read `shell/README.md` for aliases, environment, tool integrations
+- Detect `$SHELL` and write to the appropriate rc file
+- Reference config: `shell/.zshrc`
+
+### Multiplexer — Zellij
+- Install: via package manager
+- Reference: `zellij/config.kdl` → write to `~/.config/zellij/config.kdl`
+- Default mode: locked
+- Theme: rose-pine (built-in, see `theme/README.md`)
+
+### Prompt — Starship
+- Install: via package manager
+- Reference: `starship/starship.toml` → write to `~/.config/starship.toml`
+- Theme: rose-pine palette defined in config
+
+---
+
+## 3. File & Search
+
+### File manager — Yazi
+- Install: via package manager
+- Reference: `yazi/theme.toml`, `yazi/yazi.toml` → write to `~/.config/yazi/`
+- Flavor: copy `yazi/flavors/` → `~/.config/yazi/flavors/`, then `ya pkg install`
+- Theme: rose-pine flavor (see `theme/README.md`)
+
+### Search — ripgrep, fd, fzf
+- Install: via package manager (`ripgrep`, `fd`, `fzf`)
+- ripgrep: fast `grep` replacement (`rg`)
+- fd: fast `find` replacement
+- fzf: fuzzy finder, integrated into shell (see `shell/README.md`)
+- No config files needed
+
+### Browse — eza, bat, zoxide
+- Install: via package manager (`eza`, `bat`, `zoxide`)
+- eza: modern `ls` replacement
+- bat: `cat` with syntax highlighting, theme via `theme/rose-pine.tmTheme`
+- zoxide: smart `cd` replacement
+- bat theme setup: `cp theme/rose-pine.tmTheme ~/.config/bat/themes/ && bat cache --build`
+
+---
+
+## 4. Editor
+
+### Neovim
+- Install: via package manager (`neovim`)
+- Config: git submodule at `nvim/` — clone `FatPigeorz/nvim_config` to `~/.config/nvim`
+- Init submodule: `git submodule update --init --recursive`
+- If user already has nvim config, ask before overwriting
+- Theme: rose-pine (plugin in `nvim/lua/plugins/colorscheme.lua`)
+
+---
+
+## 5. Version Control
+
+### Git + Delta
+- Install: via package manager (`git`, `git-delta`)
+- Reference: `git/.gitconfig` → write to `~/.gitconfig` (merge with existing if present, preserve user.email/user.name)
+- Reference: `git/ignore` → write to `~/.config/git/ignore`
+- Delta: side-by-side diff, rose-pine syntax theme (see `theme/README.md`)
+
+---
+
+## 6. Theme — Rosé Pine
+
+Read `theme/README.md` for:
+- Full color palette
+- Per-tool theming instructions
+- How to add rose-pine to a new tool
+
+The `theme/` directory also contains `rose-pine.tmTheme` used by bat and delta.
+
+---
+
+## Package Summary
+
+All packages to install via package manager:
+
+```
+neovim ripgrep fd bat eza zoxide git-delta fzf yazi starship zellij
+```
+
+Platform-specific:
+- macOS: `brew install <packages>` + `zsh-syntax-highlighting`
 - Arch: `pacman -S --needed <packages>`
-- Other Linux: prefer Homebrew for Linux, or install individually
+- Ubuntu/Debian: prefer Homebrew for Linux
+- zsh plugins: zsh-autosuggestions (git clone), zsh-syntax-highlighting (package manager)
 
-### 2. Symlink configs
+---
 
-For each tool below, symlink from this repo to the expected location. Check if the target already exists before overwriting — if it does, diff and ask the user.
-
-**Note:** Check `$SHELL` first. Read `shell/README.md` for shell-specific instructions. If bash, generate `~/.bashrc` from the reference doc instead of symlinking `.zshrc`.
-
-```
-shell/.zshrc            → ~/.zshrc  (or generate ~/.bashrc from shell/README.md for bash)
-starship/starship.toml  → ~/.config/starship.toml
-yazi/                   → ~/.config/yazi/  (symlink individual files: theme.toml, yazi.toml; copy flavors/)
-zellij/config.kdl       → ~/.config/zellij/config.kdl
-git/.gitconfig          → ~/.gitconfig
-git/ignore              → ~/.config/git/ignore
-tmux/.tmux.conf         → ~/.tmux.conf
-```
-
-### 3. bat / delta theme
+## Directory Structure
 
 ```
-cp bat/themes/rose-pine.tmTheme ~/.config/bat/themes/
-bat cache --build
-```
-
-This gives delta its `syntax-theme = rose-pine`.
-
-### 4. Neovim (submodule)
-
-```
-git submodule update --init --recursive
-```
-
-Then symlink or check if `~/.config/nvim` already exists. If the user already has an nvim config, ask before overwriting.
-
-### 5. Shell plugins
-
-Read `shell/README.md` for full details. It covers zsh plugins, bash equivalents, and platform-specific paths.
-
-### 6. iTerm2 (macOS only)
-
-Download and import rose-pine.itermcolors from the rose-pine/iterm GitHub repo. This step requires manual action in iTerm2 preferences.
-
-### 7. Yazi flavor
-
-Run `ya pkg install` to install the rose-pine flavor registered in package.toml.
-
-## Structure
-
-```
-shell/                  — Shell config (.zshrc reference + README for bash adaptation)
-starship/starship.toml  — Starship prompt (rose-pine palette)
-yazi/                   — Yazi file manager (rose-pine flavor)
-zellij/config.kdl       — Zellij multiplexer (rose-pine, locked mode)
-git/.gitconfig          — Git (delta pager, rose-pine syntax theme)
-git/ignore              — Global gitignore
-bat/themes/             — bat/delta syntax theme (rose-pine tmTheme)
-tmux/.tmux.conf         — Tmux config
-nvim/                   — Neovim (git submodule → FatPigeorz/nvim_config)
+shell/          — Shell config (aliases, env, tool integrations for zsh/bash/fish)
+starship/       — Starship prompt config (rose-pine palette)
+yazi/           — Yazi file manager config + rose-pine flavor
+zellij/         — Zellij multiplexer config
+git/            — Git config (.gitconfig + global ignore)
+nvim/           — Neovim config (git submodule → FatPigeorz/nvim_config)
+tmux/           — Tmux config
+theme/          — Rose Pine theme (palette, tmTheme, per-tool guide)
 ```
 
 ## Principles
 
 - All tools use rose-pine theme
-- Nvim config is a git submodule (FatPigeorz/nvim_config)
-- Configs are symlinked from this repo to their expected locations
-- Edit files in this repo, NOT in ~/.config directly
+- Don't assume anything is pre-installed — install from scratch
+- Detect OS, package manager, and shell before configuring
+- **No symlinks** — read reference configs from this repo, write to machine's config locations
+- This allows per-machine differences without diverging the repo
 - Before overwriting any existing config, diff and confirm with the user
-
-## Adding a New Tool
-
-1. Create a directory: `<tool>/`
-2. Add config files
-3. Document the symlink target in this file
-4. Update README.md
+- When updating configs, update both the machine AND the reference files in this repo
