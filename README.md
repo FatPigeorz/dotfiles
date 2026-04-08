@@ -1,4 +1,4 @@
-# Dotfiles
+# AI-Friendly Terminal Configuration
 
 Personal dev environment config. Rose-pine unified theme.
 
