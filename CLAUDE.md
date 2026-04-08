@@ -58,6 +58,23 @@ When the user asks to set up this dotfiles on a new machine:
 - Reference: `yazi/theme.toml`, `yazi/yazi.toml` → write to `~/.config/yazi/`
 - Flavor: copy `yazi/flavors/` → `~/.config/yazi/flavors/`, then `ya pkg install`
 - Theme: rose-pine flavor (see `theme/README.md`)
+- Optional extensions (install for full functionality):
+  - nerd-fonts (icons, recommended)
+  - ffmpeg (video thumbnails)
+  - 7-Zip (archive extraction/preview, non-standalone version)
+  - jq (JSON preview)
+  - poppler (PDF preview)
+  - fd (file searching)
+  - rg / ripgrep (file content searching)
+  - fzf (quick subtree navigation, >= 0.53.0)
+  - zoxide (historical directory navigation, requires fzf)
+  - resvg (SVG preview)
+  - ImageMagick (Font/HEIC/JPEG XL preview, >= 7.1.1)
+  - Linux only: xclip / wl-clipboard / xsel (clipboard support)
+- Platform install commands:
+  - macOS: `brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font`
+  - Arch: `pacman -S yazi ffmpeg 7zip jq poppler fd ripgrep fzf zoxide resvg imagemagick`
+  - Ubuntu/Debian: `apt install ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick`
 
 ### Search — ripgrep, fd, fzf
 - Install: via package manager (`ripgrep`, `fd`, `fzf`)
