@@ -9,5 +9,6 @@
 [delta]
 	navigate = true
 	side-by-side = true
+	syntax-theme = rose-pine
 [merge]
 	conflictstyle = zdiff3

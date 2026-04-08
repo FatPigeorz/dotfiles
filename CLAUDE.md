@@ -8,14 +8,18 @@ zsh/.zshrc              — Zsh config (aliases, zoxide, fzf, starship)
 starship/starship.toml  — Starship prompt (rose-pine palette)
 yazi/                   — Yazi file manager (rose-pine flavor, config)
 zellij/config.kdl       — Zellij multiplexer (rose-pine, locked mode)
-git/.gitconfig          — Git (delta pager, side-by-side diff)
+git/.gitconfig          — Git (delta pager, side-by-side diff, rose-pine syntax theme)
+git/ignore              — Global gitignore
+bat/themes/             — bat/delta syntax theme (rose-pine tmTheme)
+tmux/.tmux.conf         — Tmux config
+nvim/                   — Neovim config (git submodule → FatPigeorz/nvim_config)
 install.sh              — One-shot setup script (macOS + Linux)
 ```
 
 ## Principles
 - All tools use rose-pine theme
 - install.sh supports macOS (brew) and Linux (pacman, brew)
-- Nvim config is in a separate repo (FatPigeorz/nvim_config), cloned by install.sh
+- Nvim config is a git submodule (FatPigeorz/nvim_config)
 - Configs are symlinked from ~/.dotfiles to their expected locations
 
 ## Editing Configs

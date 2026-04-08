@@ -56,11 +56,21 @@ ln -sf "$DOTFILES/zellij/config.kdl" ~/.config/zellij/config.kdl
 
 # git
 ln -sf "$DOTFILES/git/.gitconfig" ~/.gitconfig
+mkdir -p ~/.config/git
+ln -sf "$DOTFILES/git/ignore" ~/.config/git/ignore
 
-# nvim
-if [ ! -d ~/.config/nvim/.git ]; then
-  echo "==> Cloning nvim config..."
-  git clone git@github.com:FatPigeorz/nvim_config.git ~/.config/nvim
+# bat (rose-pine syntax theme for delta)
+mkdir -p ~/.config/bat/themes
+cp "$DOTFILES/bat/themes/rose-pine.tmTheme" ~/.config/bat/themes/rose-pine.tmTheme
+bat cache --build 2>/dev/null || true
+
+# tmux
+ln -sf "$DOTFILES/tmux/.tmux.conf" ~/.tmux.conf
+
+# nvim (submodule)
+git -C "$DOTFILES" submodule update --init --recursive
+if [ ! -e ~/.config/nvim ]; then
+  ln -sf "$DOTFILES/nvim" ~/.config/nvim
 fi
 
 # zsh plugins

@@ -13,12 +13,14 @@ cd ~/.dotfiles && ./install.sh
 
 | Tool | Config |
 |------|--------|
-| Neovim 0.12 | [Separate repo](https://github.com/FatPigeorz/nvim_config) (native LSP + vim.pack) |
+| Neovim 0.12 | [Submodule](https://github.com/FatPigeorz/nvim_config) (native LSP + vim.pack) |
 | Zsh | Aliases, zoxide, fzf, starship |
 | Starship | Rose-pine palette |
 | Yazi | Rose-pine flavor, nvim as editor |
 | Zellij | Rose-pine theme, locked default mode |
-| Git | Delta as pager, side-by-side diff |
+| Git + Delta | Rose-pine syntax theme, side-by-side diff |
+| bat | Rose-pine tmTheme (shared with delta) |
+| tmux | Basic config |
 
 ## Brew Packages
 

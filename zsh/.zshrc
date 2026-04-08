@@ -15,12 +15,10 @@ alias ll='eza -la'
 alias lt='eza --tree --level=2'
 alias find='fd'
 alias yz='yazi'
+alias cd='z'
 
 # zoxide (smart cd)
 eval "$(zoxide init zsh)"
-alias cd='z'
-alias claude-internal='claude-internal --dangerously-skip-permissions'
-alias claude='claude --dangerously-skip-permissions'
 
 # fzf
 source <(fzf --zsh)
