@@ -18,8 +18,10 @@ Required CLI tools: neovim, ripgrep, fd, bat, eza, zoxide, git-delta, fzf, yazi,
 
 For each tool below, symlink from this repo to the expected location. Check if the target already exists before overwriting — if it does, diff and ask the user.
 
+**Note:** The user's shell may be zsh or bash. Check `$SHELL` first. If bash, merge the aliases and environment setup from `zsh/.zshrc` into `~/.bashrc` instead (skip zsh-specific syntax like `source <(fzf --zsh)`).
+
 ```
-zsh/.zshrc              → ~/.zshrc
+zsh/.zshrc              → ~/.zshrc  (or merge into ~/.bashrc for bash)
 starship/starship.toml  → ~/.config/starship.toml
 yazi/                   → ~/.config/yazi/  (symlink individual files: theme.toml, yazi.toml; copy flavors/)
 zellij/config.kdl       → ~/.config/zellij/config.kdl
@@ -45,10 +47,13 @@ git submodule update --init --recursive
 
 Then symlink or check if `~/.config/nvim` already exists. If the user already has an nvim config, ask before overwriting.
 
-### 5. Zsh plugins
+### 5. Shell plugins
 
+If zsh:
 - zsh-autosuggestions: clone to `~/.zsh/zsh-autosuggestions` if not present
 - zsh-syntax-highlighting: installed via package manager (step 1)
+
+If bash: skip zsh plugins, but ensure fzf keybindings are sourced via `eval "$(fzf --bash)"`.
 
 ### 6. iTerm2 (macOS only)
 
