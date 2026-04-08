@@ -18,10 +18,10 @@ Required CLI tools: neovim, ripgrep, fd, bat, eza, zoxide, git-delta, fzf, yazi,
 
 For each tool below, symlink from this repo to the expected location. Check if the target already exists before overwriting — if it does, diff and ask the user.
 
-**Note:** The user's shell may be zsh or bash. Check `$SHELL` first. If bash, merge the aliases and environment setup from `zsh/.zshrc` into `~/.bashrc` instead (skip zsh-specific syntax like `source <(fzf --zsh)`).
+**Note:** Check `$SHELL` first. Read `shell/README.md` for shell-specific instructions. If bash, generate `~/.bashrc` from the reference doc instead of symlinking `.zshrc`.
 
 ```
-zsh/.zshrc              → ~/.zshrc  (or merge into ~/.bashrc for bash)
+shell/.zshrc            → ~/.zshrc  (or generate ~/.bashrc from shell/README.md for bash)
 starship/starship.toml  → ~/.config/starship.toml
 yazi/                   → ~/.config/yazi/  (symlink individual files: theme.toml, yazi.toml; copy flavors/)
 zellij/config.kdl       → ~/.config/zellij/config.kdl
@@ -49,11 +49,7 @@ Then symlink or check if `~/.config/nvim` already exists. If the user already ha
 
 ### 5. Shell plugins
 
-If zsh:
-- zsh-autosuggestions: clone to `~/.zsh/zsh-autosuggestions` if not present
-- zsh-syntax-highlighting: installed via package manager (step 1)
-
-If bash: skip zsh plugins, but ensure fzf keybindings are sourced via `eval "$(fzf --bash)"`.
+Read `shell/README.md` for full details. It covers zsh plugins, bash equivalents, and platform-specific paths.
 
 ### 6. iTerm2 (macOS only)
 
@@ -66,7 +62,7 @@ Run `ya pkg install` to install the rose-pine flavor registered in package.toml.
 ## Structure
 
 ```
-zsh/.zshrc              — Zsh (aliases, zoxide, fzf, starship)
+shell/                  — Shell config (.zshrc reference + README for bash adaptation)
 starship/starship.toml  — Starship prompt (rose-pine palette)
 yazi/                   — Yazi file manager (rose-pine flavor)
 zellij/config.kdl       — Zellij multiplexer (rose-pine, locked mode)
