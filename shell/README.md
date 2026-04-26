@@ -19,6 +19,7 @@ The fish config includes:
 - `EDITOR=nvim`
 - Rose Pine bat theme
 - fzf defaults based on `fd`
+- vi-style command editing with modal cursor shapes
 - Starship prompt
 - zoxide smart directory jumping
 - old zsh-style `cd` muscle memory via `alias cd z`
@@ -27,6 +28,9 @@ The fish config includes:
 - direnv
 - mise
 - Yazi `y` wrapper for changing cwd on exit
+
+Vi mode uses normal/insert command-line editing, block cursor in normal/visual
+mode, line cursor in insert mode, and `jk` as an insert-mode escape chord.
 
 ## Common Aliases
 

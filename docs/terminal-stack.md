@@ -61,6 +61,7 @@ Install it to:
 
 The config wires up:
 
+- vi-style command editing with modal cursor shapes
 - `starship init fish`
 - `zoxide init fish`
 - `fzf --fish`
@@ -69,6 +70,17 @@ The config wires up:
 - `mise activate fish`
 - a `y` wrapper for Yazi cwd handoff
 - zsh-era `cd -> zoxide` behavior through `alias cd z`
+
+Fish starts in vi mode for command-line editing:
+
+```fish
+fish_vi_key_bindings
+set -g fish_cursor_default block
+set -g fish_cursor_insert line
+set -g fish_cursor_replace_one underscore
+set -g fish_cursor_visual block
+bind -M insert jk 'set fish_bind_mode default; commandline -f repaint'
+```
 
 The old zsh settings have been migrated to fish. New setup should not install
 or manage zsh config from this repo.

@@ -15,6 +15,12 @@ end
 
 if status is-interactive
     set -g fish_greeting
+    fish_vi_key_bindings
+    set -g fish_cursor_default block
+    set -g fish_cursor_insert line
+    set -g fish_cursor_replace_one underscore
+    set -g fish_cursor_visual block
+    bind -M insert jk 'set fish_bind_mode default; commandline -f repaint'
 
     alias v nvim
     alias vim nvim
