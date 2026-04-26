@@ -24,7 +24,7 @@ The fish config includes:
 - zoxide smart directory jumping
 - old zsh-style `cd` muscle memory via `alias cd z`
 - fzf keybindings
-- atuin history
+- atuin history, with selected commands returned to the prompt for editing
 - direnv
 - mise
 - Yazi `y` wrapper for changing cwd on exit

@@ -8,6 +8,7 @@ Managed here:
 
 - Linux shell and CLI tool config
 - `~/.config/fish/config.fish`
+- `~/.config/atuin/config.toml`
 - `~/.config/starship.toml`
 - `~/.config/yazi/`
 - `~/.config/zellij/config.kdl`
@@ -82,6 +83,16 @@ set -g fish_cursor_visual block
 bind -M insert jk 'set fish_bind_mode default; commandline -f repaint'
 ```
 
+Atuin history search keeps selected commands editable instead of executing them
+immediately:
+
+```toml
+enter_accept = false
+```
+
+With the up-arrow Atuin picker, `Enter` and `Tab` put the selected command back
+on the prompt. Press `Enter` again from the shell prompt to run it.
+
 The old zsh settings have been migrated to fish. New setup should not install
 or manage zsh config from this repo.
 
@@ -120,9 +131,10 @@ sudo pacman -S --needed \
 Copy files instead of symlinking:
 
 ```bash
-mkdir -p ~/.config/fish ~/.config/bat/themes ~/.config/git
+mkdir -p ~/.config/fish ~/.config/atuin ~/.config/bat/themes ~/.config/git
 
 cp ~/.dotfiles/shell/config.fish ~/.config/fish/config.fish
+cp ~/.dotfiles/atuin/config.toml ~/.config/atuin/config.toml
 cp ~/.dotfiles/starship/starship.toml ~/.config/starship.toml
 cp -a ~/.dotfiles/yazi ~/.config/yazi
 cp ~/.dotfiles/zellij/config.kdl ~/.config/zellij/config.kdl

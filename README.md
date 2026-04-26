@@ -36,6 +36,7 @@ and host/Linux responsibility boundary.
 ## Directory Structure
 
 ```text
+atuin/          - Atuin history search config
 docs/           - Notes for the current Linux terminal stack
 shell/          - fish config and shell reference notes
 starship/       - Starship prompt config

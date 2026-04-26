@@ -1,0 +1,4 @@
+# Keep history search selections editable by default.
+# In the Atuin picker, Enter and Tab put the command on the prompt instead of
+# executing it immediately. Press Enter again at the shell prompt to run it.
+enter_accept = false
