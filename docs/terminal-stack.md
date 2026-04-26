@@ -72,7 +72,7 @@ The config wires up:
 - a `y` wrapper for Yazi cwd handoff
 - zsh-era `cd -> zoxide` behavior through `alias cd z`
 
-Fish starts in vi mode for command-line editing:
+Fish starts in vi normal mode for command-line editing:
 
 ```fish
 fish_vi_key_bindings
@@ -81,6 +81,7 @@ set -g fish_cursor_insert line
 set -g fish_cursor_replace_one underscore
 set -g fish_cursor_visual block
 bind -M insert jk 'set fish_bind_mode default; commandline -f repaint'
+set -g fish_bind_mode default
 ```
 
 Atuin history search keeps selected commands editable instead of executing them

@@ -29,8 +29,8 @@ The fish config includes:
 - mise
 - Yazi `y` wrapper for changing cwd on exit
 
-Vi mode uses normal/insert command-line editing, block cursor in normal/visual
-mode, line cursor in insert mode, and `jk` as an insert-mode escape chord.
+Vi mode starts in normal mode. It uses a block cursor in normal/visual mode, a
+line cursor in insert mode, and `jk` as an insert-mode escape chord.
 
 ## Common Aliases
 

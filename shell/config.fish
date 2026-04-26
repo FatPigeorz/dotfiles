@@ -66,6 +66,8 @@ if status is-interactive
     if command -q mise
         mise activate fish | source
     end
+
+    set -g fish_bind_mode default
 end
 
 function y
