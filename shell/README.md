@@ -1,115 +1,74 @@
 # Shell Configuration
 
-Reference config for the user's shell. The agent should detect the current shell (`$SHELL`) and write to the appropriate rc file.
+Fish is the default shell for this dotfiles repo.
 
-- zsh → `~/.zshrc`
-- bash → `~/.bashrc`
-- fish → `~/.config/fish/config.fish`
+## Reference Files
 
-## Aliases
-
-### zsh / bash
-
-```sh
-alias v='nvim'
-alias vim='nvim'
-alias cat='bat'
-alias ls='eza'
-alias ll='eza -la'
-alias lt='eza --tree --level=2'
-alias find='fd'
-alias yz='yazi'
-alias cd='z'
-alias claude-internal='claude-internal --dangerously-skip-permissions'
-alias claude='claude --dangerously-skip-permissions'
+```text
+shell/config.fish  -> ~/.config/fish/config.fish
 ```
 
-### fish
+The repo used to be zsh-centered. Those settings have been migrated into
+`shell/config.fish`; new Linux setups should install fish and copy that file.
+
+## Fish Features
+
+The fish config includes:
+
+- PATH entries for `~/.local/bin`, Cargo, and Go
+- `EDITOR=nvim`
+- Rose Pine bat theme
+- fzf defaults based on `fd`
+- Starship prompt
+- zoxide smart directory jumping
+- old zsh-style `cd` muscle memory via `alias cd z`
+- fzf keybindings
+- atuin history
+- direnv
+- mise
+- Yazi `y` wrapper for changing cwd on exit
+
+## Common Aliases
 
 ```fish
 alias v nvim
 alias vim nvim
 alias cat bat
 alias ls eza
-alias ll 'eza -la'
-alias lt 'eza --tree --level=2'
+alias ll 'eza -la --icons --git'
+alias lt 'eza --tree --level=2 --icons'
 alias find fd
 alias yz yazi
-alias claude-internal 'claude-internal --dangerously-skip-permissions'
-alias claude 'claude --dangerously-skip-permissions'
-```
-
-Note: fish uses `z` via the zoxide plugin, no `alias cd='z'` needed.
-
-## Environment
-
-### zsh / bash
-
-```sh
-. "$HOME/.cargo/env"
-. "$HOME/.local/bin/env"
-```
-
-### fish
-
-```fish
-# Typically handled by fish_add_path or conf.d/
-# cargo: source "$HOME/.cargo/env.fish"
-# uv:   source "$HOME/.local/bin/env.fish"
+alias cd z
+alias lg lazygit
+alias g git
+alias gs 'git status -sb'
+alias ga 'git add'
+alias gc 'git commit'
+alias gp 'git push'
+alias gl 'git pull'
+alias gd 'git diff'
+alias b btop
 ```
 
 ## Tool Integrations
 
-### Starship prompt
-- zsh: `eval "$(starship init zsh)"`
-- bash: `eval "$(starship init bash)"`
-- fish: `starship init fish | source`
-
-### Zoxide (smart cd)
-- zsh: `eval "$(zoxide init zsh)"`
-- bash: `eval "$(zoxide init bash)"`
-- fish: `zoxide init fish | source`
-
-### fzf
-- zsh: `source <(fzf --zsh)`
-- bash: `eval "$(fzf --bash)"`
-- fish: `fzf --fish | source`
-
-### Shell-specific plugins
-
-#### zsh
-- zsh-autosuggestions: `source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh`
-- zsh-syntax-highlighting: `source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh` (macOS) or from package manager path (Linux)
-
-#### fish
-- fish has built-in autosuggestions and syntax highlighting, no extra plugins needed
-
-#### bash
-- No equivalent plugins required
-
-## Yazi shell wrapper
-
-Allows `y` to change cwd on exit.
-
-### zsh / bash
-
-```sh
-function y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    command yazi "$@" --cwd-file="$tmp"
-    IFS= read -r -d '' cwd < "$tmp"
-    [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-    rm -f -- "$tmp"
-}
+```fish
+starship init fish | source
+zoxide init fish | source
+fzf --fish | source
+atuin init fish | source
+direnv hook fish | source
+mise activate fish | source
 ```
 
-### fish
+## Yazi Wrapper
 
 ```fish
 function y
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     command yazi $argv --cwd-file="$tmp"
-    if set -l cwd (cat -- $tmp); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+    if set -l cwd (cat -- "$tmp"); and test -n "$cwd"; and test "$cwd" != "$PWD"
         builtin cd -- "$cwd"
     end
     rm -f -- "$tmp"
@@ -118,6 +77,5 @@ end
 
 ## Notes
 
-- On macOS, Homebrew paths are under `/opt/homebrew/`. On Linux, adjust accordingly.
-- The `.zshrc` file in this directory is the reference zsh config.
-- For bash/fish, the agent should generate the equivalent rc file from the sections above, adapting syntax as shown.
+- Fish has built-in autosuggestions and syntax highlighting.
+- Keep machine-specific proxy settings out of this repo.
